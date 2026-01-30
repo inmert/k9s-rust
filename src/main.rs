@@ -16,6 +16,7 @@ use crate::app::App;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+
     // Setup
     enable_raw_mode()?;
     let mut stdout = io::stdout();
@@ -24,6 +25,14 @@ async fn main() -> Result<()> {
     let mut terminal = Terminal::new(backend)?;
 
     let mut app = App::default();
+
+    // Create K8s client
+    let client = k8s::watcher::get_client().await?;
+
+    // Initial fetch
+    if let Ok(pod_names) = k8s::watcher::fetch_pods(&client).await {
+        app.pods = pod_names;
+    }
 
     // Main Loop
     loop {

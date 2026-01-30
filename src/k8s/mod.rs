@@ -1,1 +1,1 @@
-mod watcher;
+pub mod watcher;
