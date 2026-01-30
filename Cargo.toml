@@ -1,0 +1,18 @@
+[package]
+name = "k9s-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# The UI framework
+ratatui = "0.26"
+crossterm = "0.27"
+
+# The Kubernetes client
+kube = { version = "0.90", features = ["runtime", "derive"] }
+k8s-openapi = { version = "0.21", features = ["v1_28"] } # Matches your kind cluster version
+
+# Async & Error handling
+tokio = { version = "1.0", features = ["full"] }
+anyhow = "1.0"
+futures = "0.3"
